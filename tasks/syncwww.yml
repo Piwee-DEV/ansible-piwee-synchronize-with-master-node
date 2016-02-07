@@ -1,6 +1,6 @@
 ---
 
-  - hosts: 127.0.0.1
+  - hosts: piwee_slave
     tasks:
 
     - name: Remove all in /var/www
@@ -10,4 +10,4 @@
     tasks:
 
     - name: Copy master /var/www to local /var/www
-      fetch: src=/var/www dest=/var/www
+      fetch: src=/var/www dest=/var flat=yes
