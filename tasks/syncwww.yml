@@ -10,4 +10,4 @@
     tasks:
 
     - name: Copy master /var/www to local /var/www
-      fetch: src=/var/www dest=/var flat=yes
+      synchronize: src=/var/www dest=/var
