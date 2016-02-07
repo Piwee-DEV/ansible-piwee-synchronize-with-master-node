@@ -10,4 +10,4 @@
     tasks:
 
     - name: Copy master /var/www to local /var/www
-      synchronize: src=/var/www dest=/var
+      shell: rsync -av root@{{ master_ip }}:/var/www /var/
