@@ -6,7 +6,7 @@
     - name: Remove all in /var/www
       file: path=/var/www state=absent
 
-  - hosts: all
+  - hosts: piwee_master
     tasks:
 
     - name: Copy master /var/www to local /var/www
