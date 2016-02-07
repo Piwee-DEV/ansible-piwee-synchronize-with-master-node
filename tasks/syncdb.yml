@@ -19,4 +19,4 @@
       shell: mysql --user=root --password={{ mysql_root_password }} --execute="CREATE DATABASE piwee"
 
     - name: Restore dump file from master
-      shell: mysql --user=root piwee < /tmp/dump.sql
+      shell: mysql --user=root --password={{ mysql_root_password }} piwee < /tmp/dump.sql
