@@ -4,7 +4,7 @@
     tasks:
 
     - name: Dump DB on the master side
-      shell: mysqldump --user=root piwee > /tmp/dump.sql
+      shell: mysqldump --user=root --password={{ mysql_root_password }} piwee > /tmp/dump.sql
 
     - name: Copy remote dump to /tmp
       fetch: src=/tmp/dump.sql dest=/tmp/dump.sql
@@ -14,10 +14,10 @@
     tasks:
 
     - name: Remove current DB
-      shell: mysql --user=root --execute="DROP DATABASE piwee"
+      shell: mysql --user=root --password={{ mysql_root_password }} --execute="DROP DATABASE piwee"
 
     - name: Create new DB
-      shell: mysql --user=root --execute="CREATE DATABASE piwee"
+      shell: mysql --user=root --password={{ mysql_root_password }} --execute="CREATE DATABASE piwee"
 
     - name: Restore dump file from master
       shell: mysql --user=root piwee < /tmp/dump.sql
