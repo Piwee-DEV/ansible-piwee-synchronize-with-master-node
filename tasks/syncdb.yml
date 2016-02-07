@@ -1,22 +1,23 @@
 ---
 
-  - name: Dump DB on the master side
-    shell: mysqldump --user=root piwee > /tmp/dump.sql"
+  - hosts: all
+    tasks:
 
-  - name: Copy remote dump to /tmp
-    fetch: src=/tmp/dump.sql dest=/tmp/dump.sql
+    - name: Dump DB on the master side
+      shell: mysqldump --user=root piwee > /tmp/dump.sql
 
-  - name: Remove current DB
-    hosts: 127.0.0.1
+    - name: Copy remote dump to /tmp
+      fetch: src=/tmp/dump.sql dest=/tmp/dump.sql
+
+  - hosts: 127.0.0.1
     connection: local
-    shell: mysql --user=root --execute="DROP DATABASE piwee"
+    tasks:
 
-  - name: Create new DB
-    hosts: 127.0.0.1
-    connection: local
-    shell: mysql --user=root --execute="CREATE DATABASE piwee"
+    - name: Remove current DB
+      shell: mysql --user=root --execute="DROP DATABASE piwee"
 
-  - name: Restore dump file from master
-    hosts: 127.0.0.1
-    connection: local
-    shell: mysql --user=root piwee < /tmp/dump.sql
+    - name: Create new DB
+      shell: mysql --user=root --execute="CREATE DATABASE piwee"
+
+    - name: Restore dump file from master
+      shell: mysql --user=root piwee < /tmp/dump.sql
