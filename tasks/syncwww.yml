@@ -10,4 +10,4 @@
     tasks:
 
     - name: Copy master /var/www to local /var/www
-      shell: rsync -av root@{{ master_ip }}:/var/www /var/
+      shell: scp -r root@{{ master_ip }}:/var/www /var/
