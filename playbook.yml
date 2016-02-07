@@ -1,0 +1,4 @@
+---
+  - hosts: all
+  - include: tasks/syncdb.yml
+  - include: tasks/syncwww.yml
