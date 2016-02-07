@@ -1,16 +1,15 @@
 ---
 
-  - hosts: all
+  - hosts: piwee_master
     tasks:
 
     - name: Dump DB on the master side
       shell: mysqldump --user=root --password={{ mysql_root_password }} piwee > /tmp/dump.sql
 
     - name: Copy remote dump to /tmp
-      fetch: src=/tmp/dump.sql dest=/tmp
+      fetch: src=/tmp/dump.sql dest=/tmp flat=yes
 
-  - hosts: 127.0.0.1
-    connection: local
+  - hosts: piwee_slave
     tasks:
 
     - name: Remove current DB
