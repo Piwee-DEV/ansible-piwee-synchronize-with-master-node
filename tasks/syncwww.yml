@@ -10,7 +10,7 @@
     tasks:
 
     - name: Zip /var/www on master
-      shell: tar -zcvf /tmp/www.tar.gz /var/www
+      shell: tar -zcvf /tmp/www.tar.gz /var/www/*
 
     - name: Fetch master www.tar.gz previously created to local /tmp
       fetch: src=/tmp/www.tar.gz dest=/tmp flat=yes
