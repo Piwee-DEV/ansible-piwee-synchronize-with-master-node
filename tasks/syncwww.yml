@@ -9,5 +9,17 @@
   - hosts: piwee_master
     tasks:
 
-    - name: Copy master /var/www to local /var/www
-      shell: scp -r root@{{ master_ip }}:/var/www /var/
+    - name: Zip /var/www on master
+      shell: tar -zcvf /tmp/www.tar.gz /var/www
+
+    - name: Fetch master www.tar.gz previously created to local /tmp
+      fetch: src=/tmp/www.tar.gz dest=/tmp flat=yes
+
+   - hosts: piwee_slave
+     tasks:
+
+     - name: Ensure /var/www does exists
+       file: path=/var/www state=directory mode=0755 user=www-data group=www-data
+
+     - name: Unarchive www.tar.gz
+       unarchive: src=/tmp/www.tar.gz dest=/var/www
