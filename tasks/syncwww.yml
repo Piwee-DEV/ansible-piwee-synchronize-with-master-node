@@ -19,10 +19,10 @@
     tasks:
 
     - name: Ensure /var/www does exists
-      file: path=/var/www state=directory mode=0755 user=www-data group=www-data
+      file: path=/var/www state=directory mode=0755 owner=www-data group=www-data
 
     - name: Unarchive www.tar.gz
       unarchive: src=/tmp/www.tar.gz dest=/var/www
 
     - name: Ensure /var/www is owned by the correct group / has the correct chmod
-      file: path=/var/www state=directory mode=0755 user=www-data group=www-data recurse=yes
+      file: path=/var/www state=directory mode=0755 owner=www-data group=www-data recurse=yes
