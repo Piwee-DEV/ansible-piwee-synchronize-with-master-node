@@ -22,7 +22,16 @@
       file: path=/var/www state=directory mode=0755 owner=www-data group=www-data
 
     - name: Unarchive www.tar.gz
-      unarchive: src=/tmp/www.tar.gz dest=/var/www
+      unarchive: src=/tmp/www.tar.gz dest=/tmp
 
     - name: Ensure /var/www is owned by the correct group / has the correct chmod
       file: path=/var/www state=directory mode=0755 owner=www-data group=www-data recurse=yes
+
+    - name: Copy /tmp/var/www/* to /var/www
+      shell: cp -R /tmp/var/www/* /var/www
+
+    - name: Clean tmp folder from var/
+      file: path=/tmp/var state=absent
+
+    - name: Clean tmp folder from www.tar.gz
+      file: path=/tmp/www.tar.gz state=absent
