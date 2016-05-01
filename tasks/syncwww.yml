@@ -29,9 +29,3 @@
 
     - name: Copy /tmp/var/www/* to /var/www
       shell: cp -R /tmp/var/www/* /var/www
-
-    - name: Clean tmp folder from var/
-      file: path=/tmp/var state=absent
-
-    - name: Clean tmp folder from www.tar.gz
-      file: path=/tmp/www.tar.gz state=absent
