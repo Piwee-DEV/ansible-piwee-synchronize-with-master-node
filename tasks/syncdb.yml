@@ -4,7 +4,7 @@
     tasks:
 
     - name: Dump DB on the master side
-      shell: mysqldump --user=root --password={{ mysql_root_password }} -h {{ mysql_host }} piwee > /tmp/dump.sql
+      shell: mysqldump --user=root --password={{ master_mysql_root_password }} -h {{ master_mysql_host }} piwee > /tmp/dump.sql
 
     - name: Copy remote dump to /tmp
       fetch: src=/tmp/dump.sql dest=/tmp flat=yes
@@ -13,10 +13,10 @@
     tasks:
 
     - name: Remove current DB
-      shell: mysql --user=root --password={{ mysql_root_password }} -h {{ mysql_host }} --execute="DROP DATABASE piwee"
+      shell: mysql --user=root --password={{ slave_mysql_root_password }} -h {{ slave_mysql_host }} --execute="DROP DATABASE piwee"
 
     - name: Create new DB
-      shell: mysql --user=root --password={{ mysql_root_password }} -h {{ mysql_host }} --execute="CREATE DATABASE piwee"
+      shell: mysql --user=root --password={{ slave_mysql_root_password }} -h {{ slave_mysql_host }} --execute="CREATE DATABASE piwee"
 
     - name: Restore dump file from master
-      shell: mysql --user=root --password={{ mysql_root_password }} -h {{ mysql_host }} piwee < /tmp/dump.sql
+      shell: mysql --user=root --password={{ slave_mysql_root_password }} -h {{ slave_mysql_host }} piwee < /tmp/dump.sql
