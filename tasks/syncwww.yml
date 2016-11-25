@@ -9,8 +9,8 @@
   - hosts: piwee_master
     tasks:
 
-    - name: Zip /var/www on master
-      shell: tar -zcvf /tmp/www.tar.gz /var/www/*
+    - name: Zip master folder on master
+      shell: tar -zcvf /tmp/www.tar.gz {{master_to_backup_path}}/*
 
     - name: Fetch master www.tar.gz previously created to local /tmp
       fetch: src=/tmp/www.tar.gz dest=/tmp flat=yes
